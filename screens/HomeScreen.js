@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -14,8 +15,12 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    header: null
   };
+  
+  clicky = () => {
+    alert("Hark, I've been clickyfied");
+  }
 
   render() {
     return (
@@ -73,7 +78,7 @@ export default class HomeScreen extends React.Component {
       );
 
       return (<View>
-        <Text style={styles.title}> Hey girl, you're developing.</Text>
+        <Button onPress={this.clicky} title="Hey girl, you're developing"/>
         <Text style={styles.developmentModeText}>
           Development mode is enabled, your app will be slower but you can use useful development
           tools. {learnMoreButton}
