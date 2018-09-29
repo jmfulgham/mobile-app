@@ -6,13 +6,14 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'La Casa',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -53,8 +54,22 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const ContactStack = createStackNavigator({
+  Contact: ContactScreen,
+});
+
+ContactStack.navigationOptions = {
+  tabBarLabel: 'Contact',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon
+      focused = {focused}
+      name={Platform.OS === 'ios' ? `ios-chatbubbles${focused ? '' : '-outline'}` : 'md-chatbubbles'}/>
+  )
+}
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  ContactStack
 });
