@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
+import AccountDetailsModal from './AccountDetailsModal';
 
-export default class ModalTester extends Component {
+export default class AccountModal extends Component {
     state = {
         isVisible: false
     };
@@ -18,7 +19,7 @@ export default class ModalTester extends Component {
                 </TouchableOpacity>
                 <Modal isVisible={this.state.isVisible}>
                     <View style={{ flex: 1 }}>
-                        <Text>Hello!</Text>
+                        <AccountDetailsModal isVisible={this.state.isVisible} style={styles.modal}/>
                         <TouchableOpacity onPress={this._toggleModal}>
                             <Text style={styles.cancel}>Cancel</Text>
                         </TouchableOpacity>
@@ -38,5 +39,9 @@ const styles= StyleSheet.create({
 
     cancel:{
     color: 'white',
+    },
+    
+    modal: {
+        justifyContent: 'flex-end'
     }
 });

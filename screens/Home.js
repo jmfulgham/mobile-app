@@ -32,14 +32,14 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-   clicky = () =>{
-     if(this.state.isVisible === true){
-       return <AccountModal/>
-     }
-     else{
-       return null
-     }
-   }
+  //  clicky = () =>{
+  //    if(this.state.isVisible === true){
+  //      return <AccountModal/>
+  //    }
+  //    else{
+  //      return null
+  //    }
+  //  }
 
   render() {
     
