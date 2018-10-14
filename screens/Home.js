@@ -7,22 +7,42 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  FlatList
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
+import AccountModal from './AccountModal';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      isAccountModalVisible: false
+    }
+  }
+  componentDidMount(){
+    this.handleShowAccountModal();
+  }
+
+  handleShowAccountModal = ()=>{
+    this.setState({ isVisible: !this.state.isVisible });
+  }
+
   static navigationOptions = {
     header: null
   };
-  
-  clicky = () => {
-    alert("Hark, I've been clickyfied");
-  }
+   clicky = () =>{
+     if(this.state.isVisible === true){
+       return <AccountModal/>
+     }
+     else{
+       return null
+     }
+   }
 
   render() {
+    
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -37,27 +57,11 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Hello, my name is Mone't
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
+          <View style={styles.listContainer}>
+            {this._renderAddAccountView()}
+       <FlatList></FlatList>
+       </View>
         </ScrollView>
-
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
@@ -69,49 +73,28 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
+  _renderAddAccountView() {
+    
       return (<View>
-        <Button onPress={this.clicky} title="Hey girl, you're developing"/>
+        <AccountModal isVisible={this.state.isAccountModalVisible} title="Add an Account" />
         <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
+          Get started by adding a bank account here. 
+          {/* {learnMoreButton} */}
         </Text></View>
-      );
-
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
       );
     }
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
-}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
+  button: {
+    color: 'green'
+  },
   title: {
-    color: 'blue',
+    color: 'green',
     fontSize: 16,
   },
   developmentModeText: {
@@ -185,7 +168,7 @@ const styles = StyleSheet.create({
   navigationFilename: {
     marginTop: 5,
   },
-  helpContainer: {
+  listContainer: {
     marginTop: 15,
     alignItems: 'center',
   },
